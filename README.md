@@ -39,4 +39,4 @@ Image naming convention: "YYYY-MM-DD xxxxx.jpg"
 [Walter Pesce](https://walter.pe)
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[MIT](https://github.com/pescew/goboard/blob/master/LICENSE)
