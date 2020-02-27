@@ -19,7 +19,7 @@ Image naming convention: "YYYY-MM-DD xxxxx.jpg"
 ```
 -bg (string): Sets the background color (default "000000")
 
--border (int): Sets the image border size
+-border (int): Sets the image border size (default 0)
 
 -border_color (string): Sets the border color (default "255, 255, 255")
 
