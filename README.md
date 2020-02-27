@@ -1,3 +1,5 @@
+[![Go Report Card](https://goreportcard.com/badge/github.com/pescew/goboard)](https://goreportcard.com/report/github.com/pescew/goboard)
+
 # goboard
 
 Cross platform digital signage server
