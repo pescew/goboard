@@ -38,7 +38,7 @@ Image naming convention: "YYYY-MM-DD xxxxx.jpg"
 
 ## Authors
 
-[Walter Pesce](https://walter.pe)
+[Walter Pesce](https://walt.pe)
 
 ## License
 [MIT](https://github.com/pescew/goboard/blob/master/LICENSE)
