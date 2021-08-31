@@ -35,10 +35,3 @@ Image naming convention: "YYYY-MM-DD xxxxx.jpg"
 
 -update_interval (int): Sets the interval for updating image list in minutes (default 60)
 ```
-
-## Authors
-
-[Walter Pesce](https://walt.pe)
-
-## License
-[MIT](https://github.com/pescew/goboard/blob/master/LICENSE)
