@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"io/ioutil"
@@ -19,7 +20,7 @@ var (
 	//portFlag is used to set the web server port
 	portFlag = flag.Int("port", 8080, "Sets the web server port")
 
-	//directoryFlag is used to set the web server port
+	//directoryFlag is used to set the image directory
 	directoryFlag = flag.String("dir", "img", "Sets the image directory")
 
 	//shuffleFlag is used to set the web server port
@@ -38,13 +39,13 @@ var (
 	borderFlag = flag.Int("border", 0, "Sets the image border size")
 
 	//borderColorFlag is used to set the border color
-	borderColorFlag = flag.String("border_color", "255, 255, 255", "Sets the border color")
+	borderColorFlag = flag.String("border_color", "FFFFFF", "Sets the border color")
 
 	//intervalFlag is used to set the update interval in minutes
 	intervalFlag = flag.Int("update_interval", 60, "Sets the interval for updating image list in minutes")
 
 	//strings
-	borderSwitch, borderSize, durationString, divContent, intervalString string
+	borderSwitch, borderSize, borderColorRGB, durationString, divContent, intervalString string
 
 	//timezone
 	localTZ *time.Location
@@ -101,6 +102,12 @@ func main() {
 		borderSize = strconv.Itoa(*borderFlag)
 	}
 
+	borderColorRGB, err = hexToRGB(*borderColorFlag)
+	if err != nil {
+		fmt.Println("ERROR: " + err.Error())
+		fmt.Println("BORDER COLOR SET TO BLACK")
+	}
+
 	//timezone check
 	if *tzFlag != "Local" {
 		fmt.Println("Using manual timezone:", *tzFlag)
@@ -144,7 +151,7 @@ func main() {
 
 //http server
 func mainServer(w http.ResponseWriter, r *http.Request) {
-	htmlString := fmt.Sprintf(htmlPage, intervalString, borderSize, *borderColorFlag, borderSwitch, *bgFlag, divContent, durationString)
+	htmlString := fmt.Sprintf(htmlPage, intervalString, borderSize, borderColorRGB, borderSwitch, *bgFlag, divContent, durationString)
 	fmt.Fprint(w, htmlString)
 }
 
@@ -187,6 +194,36 @@ func walkMatch(root, pattern string) ([]string, []string, error) {
 		return nil, nil, err
 	}
 	return matches, matchesRaw, nil
+}
+
+func hexToRGB(hex string) (out string, err error) {
+	if len(hex) != 6 && len(hex) != 7 {
+		return out, errors.New("hex color must be 6-7 characters")
+	}
+	if len(hex) == 7 && hex[0] != '#' {
+		return out, errors.New("7 digit hex color must start with '#'")
+	} else if len(hex) == 6 && hex[0] == '#' {
+		return out, errors.New("6 digit hex color can't start with '#'")
+	}
+	if len(hex) == 6 {
+		hex = "#" + hex
+	}
+	var red, redError = strconv.ParseUint(hex[1:3], 16, 8)
+	if redError != nil {
+		return out, errors.New("red component invalid")
+	}
+	out = strconv.FormatUint(red, 10)
+	var green, greenError = strconv.ParseUint(hex[3:5], 16, 8)
+	if greenError != nil {
+		return out, errors.New("green component invalid")
+	}
+	out += "," + strconv.FormatUint(green, 10)
+	var blue, blueError = strconv.ParseUint(hex[5:7], 16, 8)
+	if blueError != nil {
+		return out, errors.New("blue component invalid")
+	}
+	out += "," + strconv.FormatUint(blue, 10)
+	return
 }
 
 func updateImages() {
