@@ -316,7 +316,7 @@ overflow:hidden;
 </style>
 </head>
 <body bgcolor="%v" style="cursor: none">
-<script src="js/jquery-3.4.1.min.js"></script>
+<script src="js/jquery-3.6.0.min.js"></script>
 <div id="slideshow">
    %v
 </div>
