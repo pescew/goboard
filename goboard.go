@@ -23,7 +23,7 @@ var (
 	//directoryFlag is used to set the image directory
 	directoryFlag = flag.String("dir", "img", "Sets the image directory")
 
-	//shuffleFlag is used to set the web server port
+	//shuffleFlag is used to enable shuffle sort
 	shuffleFlag = flag.Bool("shuffle", false, "Enables shuffle sort (default false)")
 
 	//durationFlag is used to set the slide duration in seconds
@@ -316,7 +316,7 @@ overflow:hidden;
 </style>
 </head>
 <body bgcolor="%v" style="cursor: none">
-<script src="js/jquery-3.6.0.min.js"></script>
+<script src="js/jquery-3.7.0.min.js"></script>
 <div id="slideshow">
    %v
 </div>
